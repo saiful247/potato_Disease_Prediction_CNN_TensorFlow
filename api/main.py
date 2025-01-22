@@ -8,7 +8,19 @@ from PIL import Image  # pillow
 
 import tensorflow as tf
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()  # Create an instance of FastAPI
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust the origins as needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 MODEL = tf.keras.models.load_model("../models/1.h5")
 CLASS_NAMES = ['Early Blight', 'Late Blight', 'Healthy']
